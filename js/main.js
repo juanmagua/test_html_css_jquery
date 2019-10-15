@@ -1,49 +1,43 @@
-var currentWidget;
+let $username = localStorage.getItem("username");
 
-var $username = localStorage.getItem("username");
+const $courses = ["JavaScript", "PHP", "JAVA", "C++"];
 
-var $courses = ["JavaScript", "PHP", "JAVA", "C++"];
-
-var $subscribers = [{"firstname": "Juan Manuel", lastname: "Guadalupe", "course": "PHP"}];
+const $subscribers = [{"firstname": "Juan Manuel", lastname: "Guadalupe", "course": "PHP"}];
 
 
 $(document).ready(function () {
 
     init();
-	
+    
+    // Render Select
 	$.each($courses, function(key, value) {   
 		$('#course').append($("<option></option>").attr("value",value).text(value)); 
 	});
 
+    // Event Signup
     $('#btn-signup').click(function () {
         if($('#firstname, #lastname').val() != '' && $("#course option:selected" ).length > 0){
 			signup();
             return false;
-        }
-        
+        }        
 		notify('error', "First Name, Last Name and Course is required");
-		
 		return false;
     });
 
+    // Event Logout
     $('#btn-logout').click(function () {
         logout();
         return false;
     });
 
-
-
 });
 
 
 function init() {
-		
+	
 	cleanForm();
 	
-	$(".container").show("slow");
-	
-	console.log($username);
-        
+	$(".container").show("slow");	        
     if ($username !== 'undefined' && $username !== null) {
         $("#dashboard").show();
         $("#login").hide();
@@ -52,25 +46,16 @@ function init() {
     } else {
         $("#login").show();
         $("#dashboard").hide();
-    }
-	
+    }	
 	return false;
 }
 
 function signup() {
-    
-	var subscriber = formToJSON();
-	
+	let subscriber = formToJSON();
 	$subscribers.push(subscriber);
-	
-	console.log($subscribers);
-	
 	localStorage.setItem("username", subscriber.firstname + " " + subscriber.lastname);
-	
 	$username = localStorage.getItem("username");
-	
 	init();
-	
 }
 
 function logout() {
@@ -82,13 +67,11 @@ function logout() {
 
 
 function renderList() {
-
     $('#subscribers').html('');
-	
 	$('#subscribers').hide();
-
     if ($subscribers.length > 0) {
-        var $html = '<div class="row bg-row">' + 
+
+        let  $html = '<div class="row bg-row">' + 
 					'<div class="col-4">FistName</div>' +
 					'<div class="col-4">LastName</div>' +
 					'<div class="col-4">Course</div>' +
@@ -104,9 +87,7 @@ function renderList() {
         });
 
         $('#subscribers').html($html);
-
         $('#subscribers').show("slow");
-
     }
 }
 
