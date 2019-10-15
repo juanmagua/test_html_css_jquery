@@ -4,7 +4,6 @@ const $courses = ["JavaScript", "PHP", "JAVA", "C++"];
 
 const $subscribers = [{"firstname": "Juan Manuel", lastname: "Guadalupe", "course": "PHP"}];
 
-
 $(document).ready(function () {
 
     init();
@@ -34,10 +33,9 @@ $(document).ready(function () {
 
 
 function init() {
-	
-	cleanForm();
-	
-	$(".container").show("slow");	        
+    $('#firstname, #lastname, #course').val('');
+    $(".container").show("slow");	       
+    
     if ($username !== 'undefined' && $username !== null) {
         $("#dashboard").show();
         $("#login").hide();
@@ -46,7 +44,8 @@ function init() {
     } else {
         $("#login").show();
         $("#dashboard").hide();
-    }	
+    }
+    	
 	return false;
 }
 
@@ -67,8 +66,8 @@ function logout() {
 
 
 function renderList() {
-    $('#subscribers').html('');
-	$('#subscribers').hide();
+    $('#subscribers').html('').hide();
+	
     if ($subscribers.length > 0) {
 
         let  $html = '<div class="row bg-row">' + 
@@ -86,13 +85,8 @@ function renderList() {
 
         });
 
-        $('#subscribers').html($html);
-        $('#subscribers').show("slow");
+        $('#subscribers').html($html).show("slow");
     }
-}
-
-function cleanForm() {
-    $('#firstname, #lastname, #course').val('');
 }
 
 function formToJSON() {
